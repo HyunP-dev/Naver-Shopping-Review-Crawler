@@ -1,4 +1,4 @@
-# Naver Shopping Review Crawler
+# Naver Shopping Review Scrapper
 네이버 쇼핑에서 상품평을 가져오는 웹 스크래퍼
 
 ## Functions
