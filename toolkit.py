@@ -21,7 +21,7 @@ def get_reviews_url(url: str):
         result = lambda page: f"https://shopping.naver.com/v1/reviews/paged-reviews?page={page}&pageSize=30&merchantNo={merchantNo}&originProductNo={originProductNo}&sortType=REVIEW_RANKING"
         return result
     if "search.shopping.naver.com/catalog/" in url:
-        nv_mid = url.split("?")[-1].split("/")[-1]
+        nv_mid = url.split("?")[0].split("/")[-1]
         result = lambda page: f"https://search.shopping.naver.com/api/review?nvMid={nv_mid}&reviewType=ALL&page={page}"
         return result
     raise InvalidUrlExeption()
