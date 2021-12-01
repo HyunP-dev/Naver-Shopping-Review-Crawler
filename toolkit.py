@@ -7,10 +7,10 @@ import pandas as pd
 
 def get_reviews_url(url: str):
     bs = BeautifulSoup(requests.get(url).text, "html5lib")
-    merchantNo = json.loads(bs.script.text)['sku']
     script_nodes = bs.select("script")
     preloaded_state = list(filter(lambda node: node.text.startswith("window.__PRELOADED_STATE__="), script_nodes))[0]
     preloaded_state = json.loads(preloaded_state.text[(len("window.__PRELOADED_STATE__=")):])
+    merchantNo = preloaded_state['product']['A']['channel']['naverPaySellerNo']
     originProductNo = preloaded_state['photoVideoReviewIds']['A']['originProductNo']
     result: Callable[[int], str] = lambda page: f"https://shopping.naver.com/v1/reviews/paged-reviews?page={page}&pageSize=30&merchantNo={merchantNo}&originProductNo={originProductNo}&sortType=REVIEW_RANKING"
     return result
