@@ -36,5 +36,6 @@ def get_reviews(review_url: str):
     if review_url.startswith("https://search.shopping.naver.com/api/review?nvMid="):
         dataset = pd.DataFrame(json.loads(requests.get(review_url).text)['reviews'])[["starScore", "content"]]
         dataset = dataset.rename(columns={'starScore':'ratings', 'content': 'reviews'})
+        dataset.reviews = dataset.reviews.apply(lambda review: BeautifulSoup(review, "lxml").text)
         return dataset
     raise InvalidUrlExeption()
